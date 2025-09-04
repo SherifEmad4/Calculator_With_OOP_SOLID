@@ -2,6 +2,7 @@
 {
     public string Display()
     {
+        Console.Clear();
         Console.WriteLine("Enter Your Choice Of Operation Please \n" +
                 "1: Addition\n" +
                 "2: Subtraction\n" +
@@ -23,10 +24,9 @@
     public void Start()
     {
         bool ContinueChoice = true ;
-        string choice;
+
         while (ContinueChoice)
         {
-            Console.Clear();
             string input = Display();
 
             if (!IsValidatedOperation(input))
@@ -39,7 +39,6 @@
             int inputOperation = int.Parse(input);
             var operation = GetOperation(inputOperation);
 
-            // Handle operations with two parameters
             if (operation is IOperationWithTwoParameter opTwo)
             {
                 Console.Write("Enter First Number: ");
@@ -71,7 +70,7 @@
                 }
                 Console.WriteLine($"The Result Of Your Operation is : {opTwo.Calc(x, y)}");
             }
-            // Handle operations with one parameter (e.g., Square Root)
+
             else if (operation is IOperationWithOneParameter opOne)
             {
                 Console.Write("Enter a Number: ");
@@ -84,7 +83,6 @@
                     continue;
                 }
 
-                // Validation
                 if (operation is IValidatableOneParameter validator &&
                     !validator.Validate(x, out string errorMessage))
                 {
