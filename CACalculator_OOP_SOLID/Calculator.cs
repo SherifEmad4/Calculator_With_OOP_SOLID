@@ -37,7 +37,7 @@
             }
 
             int inputOperation = int.Parse(input);
-            var operation = GetOperation(inputOperation);
+            var operation = AssignOperation(inputOperation);
 
             if (operation is IOperationWithTwoParameter opTwo)
             {
@@ -100,7 +100,7 @@
     }
     public bool IsValidatedOperation (string operation)=> int.TryParse(operation, out int result) 
         && result >=1 &&result <=7;
-    private object GetOperation(int inputOperation)
+    private object AssignOperation(int inputOperation)
     {
         switch(inputOperation){
             case 1:
