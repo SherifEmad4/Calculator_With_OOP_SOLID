@@ -19,7 +19,7 @@
     {
         Console.Write("\nDo you want to continue? (yes/no): ");
         var choice = Console.ReadLine().ToLower();
-        return choice == "yes"? true :false;
+        return choice == "yes";
     }
     public void Start()
     {
@@ -59,7 +59,6 @@
                     continue;
                 }
 
-                // Validation
                 if (operation is IValidatableTwoParameters validator &&
                     !validator.Validate(x, y, out string errorMessage))
                 {
