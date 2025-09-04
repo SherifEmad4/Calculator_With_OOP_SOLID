@@ -1,13 +1,8 @@
 ﻿public class Calculator
 {
-    public void Start()
+    public string Display()
     {
-        bool ContinueChoice = true ;
-        string choice;
-        while (ContinueChoice)
-        {
-            Console.Clear();
-            Console.WriteLine("Enter Your Choice Of Operation Please \n" +
+        Console.WriteLine("Enter Your Choice Of Operation Please \n" +
                 "1: Addition\n" +
                 "2: Subtraction\n" +
                 "3: Multiplication\n" +
@@ -16,15 +11,28 @@
                 "6: Modulo\n" +
                 "7: Square Root\n" +
                 "Enter Your Choice Between 1 - 7: ");
+        string input = Console.ReadLine();
+        return input;
+    }
+    public bool IsContinue()
+    {
+        Console.Write("\nDo you want to continue? (yes/no): ");
+        var choice = Console.ReadLine().ToLower();
+        return choice == "yes"? true :false;
+    }
+    public void Start()
+    {
+        bool ContinueChoice = true ;
+        string choice;
+        while (ContinueChoice)
+        {
+            Console.Clear();
+            string input = Display();
 
-            string input = Console.ReadLine();
             if (!IsValidatedOperation(input))
             {
                 Console.WriteLine("You Have Entered Wrong Input , Please Try Again\n");
-                Console.Write("\nDo you want to continue? (yes/no): ");
-                choice = Console.ReadLine().ToLower();
-                if (choice != "yes")
-                    ContinueChoice = false;
+                ContinueChoice = IsContinue();
                 continue;
             }
 
@@ -42,19 +50,13 @@
                 if (!double.TryParse(inputx, out double x))
                 {
                     Console.WriteLine("Error in entering First Number, Try Again\n");
-                    Console.Write("\nDo you want to continue? (yes/no): ");
-                     choice = Console.ReadLine().ToLower();
-                    if (choice != "yes")
-                        ContinueChoice = false;
+                    ContinueChoice = IsContinue();
                     continue;
                 }
                 if (!double.TryParse(inputy, out double y))
                 {
                     Console.WriteLine("Error in entering Second Number, Try Again\n");
-                    Console.Write("\nDo you want to continue? (yes/no): ");
-                    choice = Console.ReadLine().ToLower();
-                    if (choice != "yes")
-                        ContinueChoice = false;
+                    ContinueChoice = IsContinue();
                     continue;
                 }
 
@@ -63,10 +65,7 @@
                     !validator.Validate(x, y, out string errorMessage))
                 {
                     Console.WriteLine(errorMessage);
-                    Console.Write("\nDo you want to continue? (yes/no): ");
-                    choice = Console.ReadLine().ToLower();
-                    if (choice != "yes")
-                        ContinueChoice = false;
+                    ContinueChoice = IsContinue();
 
                     continue;
                 }
@@ -81,10 +80,7 @@
                 if (!double.TryParse(inputx, out double x))
                 {
                     Console.WriteLine("Error in entering Number, Try Again");
-                    Console.Write("\nDo you want to continue? (yes/no): ");
-                    choice = Console.ReadLine().ToLower();
-                    if (choice != "yes")
-                        ContinueChoice = false;
+                    ContinueChoice = IsContinue();
                     continue;
                 }
 
@@ -93,23 +89,15 @@
                     !validator.Validate(x, out string errorMessage))
                 {
                     Console.WriteLine(errorMessage);
-                    Console.Write("\nDo you want to continue? (yes/no): ");
-                    choice = Console.ReadLine().ToLower();
-                    if (choice != "yes")
-                        ContinueChoice = false;
+                    ContinueChoice = IsContinue();
                     continue;
                 }
 
                 Console.WriteLine($"The Result Of Your Operation is : {opOne.Calc(x)}\n");
             }
 
-            Console.Write("\nDo you want to continue? (yes/no): ");
-            choice = Console.ReadLine().ToLower();
-            if (choice != "yes")
-                ContinueChoice = false;
+            ContinueChoice = IsContinue();
         }
-
-
 
     }
     public bool IsValidatedOperation (string operation)=> int.TryParse(operation, out int result) 
