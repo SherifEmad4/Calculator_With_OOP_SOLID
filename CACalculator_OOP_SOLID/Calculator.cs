@@ -23,16 +23,16 @@
     }
     public void Start()
     {
-        bool ContinueChoice = true ;
+        bool continueChoice = true ;
 
-        while (ContinueChoice)
+        while (continueChoice)
         {
             string input = Display();
 
             if (!IsValidatedOperation(input))
             {
                 Console.WriteLine("You Have Entered Wrong Input , Please Try Again\n");
-                ContinueChoice = IsContinue();
+                continueChoice = IsContinue();
                 continue;
             }
 
@@ -43,33 +43,34 @@
             {
                 Console.Write("Enter First Number: ");
                 string inputx = Console.ReadLine();
-                Console.Write("Enter Second Number: ");
-                string inputy = Console.ReadLine();
 
                 if (!double.TryParse(inputx, out double x))
                 {
-                    Console.WriteLine("Error in entering First Number, Try Again\n");
-                    ContinueChoice = IsContinue();
-                    continue;
-                }
-                if (!double.TryParse(inputy, out double y))
-                {
-                    Console.WriteLine("Error in entering Second Number, Try Again\n");
-                    ContinueChoice = IsContinue();
+                    Console.WriteLine("Error in Entering First Number, Try Again\n");
+                    continueChoice = IsContinue();
                     continue;
                 }
 
+                Console.Write("Enter Second Number: ");
+                string inputy = Console.ReadLine();
+                if (!double.TryParse(inputy, out double y))
+                {
+                    Console.WriteLine("Error in Entering Second Number, Try Again\n");
+                    continueChoice = IsContinue();
+                    continue;
+                }
+                 
                 if (operation is IValidatableTwoParameters validator &&
                     !validator.Validate(x, y, out string errorMessage))
                 {
                     Console.WriteLine(errorMessage);
-                    ContinueChoice = IsContinue();
+                    continueChoice = IsContinue();
 
                     continue;
                 }
                 Console.WriteLine($"The Result Of Your Operation is : {opTwo.Calc(x, y)}");
             }
-
+            
             else if (operation is IOperationWithOneParameter opOne)
             {
                 Console.Write("Enter a Number: ");
@@ -78,22 +79,22 @@
                 if (!double.TryParse(inputx, out double x))
                 {
                     Console.WriteLine("Error in entering Number, Try Again");
-                    ContinueChoice = IsContinue();
+                    continueChoice = IsContinue();
                     continue;
                 }
-
+                 
                 if (operation is IValidatableOneParameter validator &&
                     !validator.Validate(x, out string errorMessage))
                 {
                     Console.WriteLine(errorMessage);
-                    ContinueChoice = IsContinue();
+                    continueChoice = IsContinue();
                     continue;
                 }
 
                 Console.WriteLine($"The Result Of Your Operation is : {opOne.Calc(x)}\n");
             }
 
-            ContinueChoice = IsContinue();
+            continueChoice = IsContinue();
         }
 
     }
